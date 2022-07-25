@@ -1,0 +1,66 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "lime",
+			"command": "test",
+			"group": "build",
+			"label": "lime: test (active configuration)"
+		},
+		{
+			"type": "lime",
+			"command": "test",
+			"targetConfiguration": "HTML5 / Debug",
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			],
+			"label": "lime: test html5 -debug",
+			"group": "build"
+		},
+		{
+			"type": "lime",
+			"command": "test",
+			"targetConfiguration": "HashLink / Debug",
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			],
+			"label": "lime: test hl -debug",
+			"group": "build"
+		},
+		{
+			"type": "lime",
+			"command": "test",
+			"targetConfiguration": "HTML5",
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			],
+			"label": "lime: test html5",
+			"group": "build"
+		},
+		{
+			"type": "lime",
+			"command": "build",
+			"targetConfiguration": "HTML5 / Debug",
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			],
+			"label": "lime: build html5 -debug",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
