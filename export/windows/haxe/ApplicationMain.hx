@@ -16,11 +16,11 @@ class ApplicationMain
 	#if !macro
 	public static function main()
 	{
-		lime.system.System.__registerEntryPoint("Garbage Collector", create);
+		lime.system.System.__registerEntryPoint("Pop-up Blocker", create);
 
 		#if (js && html5)
 		#if (munit || utest)
-		lime.system.System.embed("Garbage Collector", null, 1024, 576);
+		lime.system.System.embed("Pop-up Blocker", null, 1024, 576);
 		#end
 		#else
 		create(null);
@@ -35,10 +35,10 @@ class ApplicationMain
 		ManifestResources.init(config);
 		#end
 
-		app.meta["build"] = "2";
-		app.meta["company"] = "HaxeFlixel";
-		app.meta["file"] = "Garbage Collector";
-		app.meta["name"] = "Garbage Collector";
+		app.meta["build"] = "1";
+		app.meta["company"] = "EpicGamer";
+		app.meta["file"] = "Pop-up Blocker";
+		app.meta["name"] = "Pop-up Blocker";
 		app.meta["packageName"] = "com.example.myapp";
 		app.meta["version"] = "0.0.1";
 
@@ -60,7 +60,7 @@ class ApplicationMain
 			minimized: false,
 			parameters: {},
 			resizable: true,
-			title: "Garbage Collector",
+			title: "Pop-up Blocker",
 			width: 1024,
 			x: null,
 			y: null,

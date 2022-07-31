@@ -35,12 +35,12 @@ class PlayState extends FlxState
 	public var gameCam:Camera;
 
 	final windowTypes:Array<Class<Window>> = [PopUp, Double, MathWindow, Typer, MashWindow];
-	final weights:Array<Float> = [1, .25, .65, .625, .4, .4];
+	final weights:Array<Float> = [1, .25, .65, .625, .4];
 
 	var timeTxt:FlxBitmapText;
 	var time:Float;
 	var spawnTimer:FlxTimer;
-	var spawnRate:Float = 2.75;
+	var spawnRate:Float = 2.25;
 	var temperature:TempBar;
 	var fanSound:FlxSound;
 

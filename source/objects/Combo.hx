@@ -11,7 +11,6 @@ import util.Game;
 class Combo extends Window
 {
 	final combos:Array<Array<FlxKey>> = [
-		[FlxKey.CONTROL, FlxKey.SHIFT, FlxKey.B],
 		[FlxKey.SHIFT, FlxKey.A, FlxKey.B],
 		[FlxKey.SHIFT, FlxKey.G, FlxKey.A],
 		[FlxKey.SHIFT, FlxKey.G, FlxKey.B]

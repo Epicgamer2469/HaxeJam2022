@@ -17,13 +17,14 @@
 -D native
 -D lime-curl
 -D openfl-native
--D openfl-disable-handle-error
 -D HL_PATH=C:\HaxeToolkit\haxe\lib\hl
 -D lime-harfbuzz
 -D tools=7.9.0
 -D lime-cairo
+-D FLX_NO_DEBUG
 -D lime-opengl
 -D no-compilation
+-D NAPE_RELEASE_BUILD
 -D FLX_NO_TOUCH
 -D lime-native
 -D lime-vorbis

@@ -35,7 +35,7 @@ class ApplicationMain
 		ManifestResources.init(config);
 		#end
 
-		app.meta["build"] = "8";
+		app.meta["build"] = "1";
 		app.meta["company"] = "EpicGamer";
 		app.meta["file"] = "Pop-up Blocker";
 		app.meta["name"] = "Pop-up Blocker";
