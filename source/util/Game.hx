@@ -4,6 +4,7 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxBitmapFont;
 import flixel.group.FlxGroup;
+import flixel.system.FlxSound;
 import flixel.text.FlxBitmapText;
 import flixel.text.FlxText;
 import flixel.tile.FlxTileblock;
@@ -13,6 +14,7 @@ import openfl.Assets;
 class Game
 {
 	public static var save = new FlxSave();
+	public static var keySounds:Array<FlxSound> = [];
 
 	public static function init()
 	{
@@ -24,6 +26,16 @@ class Game
 			save.data.seenDialogue = false;
 
 		save.flush();
+
+		for (i in 1...8)
+		{
+			keySounds.push(FlxG.sound.load('assets/sounds/keys/key-0$i${Game.getEXT()}'));
+		}
+	}
+
+	public static function playKeySound()
+	{
+		FlxG.random.getObject(keySounds).play();
 	}
 
 	public static function playSound(sound:String, volume:Float = 1)

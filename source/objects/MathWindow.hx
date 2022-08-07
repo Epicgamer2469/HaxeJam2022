@@ -21,7 +21,7 @@ class MathWindow extends Window
 
 	public function new(x:Float, y:Float)
 	{
-		super(x, y, 'assets/images/window_math.png');
+		super(x, y, 'window_math');
 		power = 9.5;
 
 		var correct = 0;

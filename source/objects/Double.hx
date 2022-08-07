@@ -10,7 +10,7 @@ class Double extends Window
 
 	public function new(x:Float, y:Float)
 	{
-		super(x, y, 'assets/images/window_big_${FlxG.random.int(1, 1)}.png', true);
+		super(x, y, 'window_big_${FlxG.random.int(1, 1)}', true);
 		power = 8;
 	}
 

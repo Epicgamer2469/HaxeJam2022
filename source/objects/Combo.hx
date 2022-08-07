@@ -11,23 +11,19 @@ import util.Game;
 class Combo extends Window
 {
 	final combos:Array<Array<FlxKey>> = [
-		[FlxKey.SHIFT, FlxKey.A, FlxKey.B],
-		[FlxKey.SHIFT, FlxKey.G, FlxKey.A],
-		[FlxKey.SHIFT, FlxKey.G, FlxKey.B]
+		[FlxKey.G, FlxKey.A, FlxKey.B],
+		[FlxKey.Z, FlxKey.Y, FlxKey.M],
+		[FlxKey.D, FlxKey.U, FlxKey.N],
+		[FlxKey.W, FlxKey.F, FlxKey.J],
+		[FlxKey.W, FlxKey.Y, FlxKey.S],
+		[FlxKey.H, FlxKey.A, FlxKey.X]
 	];
 
 	var buttons:Array<CButton> = [];
-	var sounds:Array<FlxSound> = [];
 
 	public function new(x:Float, y:Float)
 	{
-		super(x, y, 'assets/images/window_hold.png');
-
-		for (i in 1...8)
-		{
-			// man i use these sounds a lot
-			sounds.push(FlxG.sound.load('assets/sounds/keys/key-0$i${Game.getEXT()}'));
-		}
+		super(x, y, 'window_hold');
 
 		var combo:Array<FlxKey> = FlxG.random.getObject(combos);
 		var lastButton:CButton = null;
@@ -82,6 +78,8 @@ class CButton extends FlxSprite
 
 	public function check()
 	{
+		if (FlxG.keys.anyJustPressed([key]))
+			Game.playKeySound();
 		if (FlxG.keys.anyPressed([key]))
 		{
 			animation.frameIndex = 1;

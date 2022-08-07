@@ -27,7 +27,7 @@ class Typer extends Window
 
 	public function new(x:Float, y:Float)
 	{
-		super(x, y, 'assets/images/window_typing.png');
+		super(x, y, 'window_typing');
 		power = 8;
 
 		text = Game.makeText('8px');
@@ -106,7 +106,7 @@ class Typer extends Window
 			if (fKey == null)
 				return;
 
-			FlxG.random.getObject(sounds).play();
+			Game.playKeySound();
 			cTmr = .5;
 			if (ghost.text.charAt(index) == fKey.toLowerCase())
 			{
