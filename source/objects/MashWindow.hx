@@ -13,18 +13,12 @@ class MashWindow extends Window
 
 	public function new(x:Float, y:Float)
 	{
-		super(x, y, 'assets/images/window_mash.png');
+		super(x, y, 'window_mash');
 
 		mashMeter = new FlxBar(5, 24, LEFT_TO_RIGHT, 50, 6, this, 'mashes', 0, 20);
 		mashMeter.createColoredEmptyBar(0xFF122020);
 		mashMeter.createColoredFilledBar(0xFF59C135);
 		add(mashMeter);
-
-		for (i in 1...8)
-		{
-			// man i use these sounds a lot
-			sounds.push(FlxG.sound.load('assets/sounds/keys/key-0$i${Game.getEXT()}'));
-		}
 	}
 
 	override function whenFocused()
@@ -32,7 +26,7 @@ class MashWindow extends Window
 		if (FlxG.keys.justPressed.ANY)
 		{
 			mashes++;
-			FlxG.random.getObject(sounds).play();
+			Game.playKeySound();
 			if (mashes >= 20)
 				exit();
 		}

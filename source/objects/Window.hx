@@ -25,11 +25,12 @@ class Window extends FlxSpriteGroup
 	var shadow:FlxSprite;
 	var close:FlxSprite;
 
-	public function new(x:Float, y:Float, sprite:FlxGraphicAsset, hasClose:Bool = false, bouncing:Bool = false)
+	public function new(x:Float, y:Float, sprite:String, hasClose:Bool = false, bouncing:Bool = false)
 	{
 		super(x, y);
 		this.bouncing = bouncing;
 
+		sprite = StringTools.startsWith(sprite, 'assets/images') ? sprite : 'assets/images/windows/$sprite.png';
 		window = new FlxSprite(0, 0, sprite);
 
 		shadow = new FlxSprite(2, 2, sprite);

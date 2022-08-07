@@ -38,7 +38,7 @@ class GameOverState extends FlxState
 		FlxG.sound.music.stop();
 		Game.playSound('end');
 
-		var bg = new FlxSprite(0, 0, 'assets/images/bsod.png');
+		var bg = new FlxSprite(0, 0, 'assets/images/backgrounds/bsod.png');
 		add(bg);
 
 		var quip = makeText(FlxG.random.getObject(quips), 12, 87, '5px');

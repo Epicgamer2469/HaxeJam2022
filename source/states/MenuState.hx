@@ -24,11 +24,11 @@ class MenuState extends FlxState
 	{
 		super.create();
 
-		var bg = new FlxSprite(0, 0, 'assets/images/menu_bg.png');
+		var bg = new FlxSprite(0, 0, 'assets/images/backgrounds/menu_bg.png');
 		emitter1 = new FlxEmitter(0, FlxG.height + 20);
 		emitter1.launchMode = SQUARE;
 		emitter1.setSize(48, 10);
-		emitter1.loadParticles('assets/images/circle.png', 20, 0);
+		emitter1.loadParticles('assets/images/menu/circle.png', 20, 0);
 		emitter1.keepScaleRatio = true;
 		emitter1.scale.set(.3, .3, 1, 1);
 		emitter1.velocity.set(-10, -30, 10, -50);
@@ -38,20 +38,20 @@ class MenuState extends FlxState
 		emitter2 = new FlxEmitter(FlxG.width - 48, FlxG.height + 20);
 		emitter2.launchMode = SQUARE;
 		emitter2.setSize(48, 10);
-		emitter2.loadParticles('assets/images/circle.png', 20, 0);
+		emitter2.loadParticles('assets/images/menu/circle.png', 20, 0);
 		emitter2.keepScaleRatio = true;
 		emitter2.scale.set(.3, .3, 1, 1);
 		emitter2.velocity.set(-10, -30, 10, -50);
 		emitter2.lifespan.set(6, 6);
 		emitter2.start(false, 0.8);
 
-		logo = new FlxSprite(0, 0, 'assets/images/logo.png');
+		logo = new FlxSprite(0, 0, 'assets/images/menu/logo.png');
 		logo.scale.set(2, 2);
 		logo.updateHitbox();
 		logo.screenCenter();
 		logo.y = -logo.height - 5;
 
-		haxejam = new FlxSprite(0,0, 'assets/images/haxejam.png');
+		haxejam = new FlxSprite(0, 0, 'assets/images/menu/haxejam.png');
 		haxejam.setPosition(FlxG.width - haxejam.width - 1, FlxG.height - haxejam.height - 1);
 		haxejam.alpha = 0;
 
@@ -177,9 +177,9 @@ class PlayWindow extends Window
 	public function new(parent:MenuState)
 	{
 		this.parent = parent;
-		super(x, y, 'assets/images/play.png');
+		super(x, y, 'assets/images/menu/play.png');
 		setPosition(102, FlxG.height + 5);
-		clicky = new FlxSprite(1, 7, 'assets/images/play_mask.png');
+		clicky = new FlxSprite(1, 7, 'assets/images/menu/play_mask.png');
 		clicky.alpha = 0;
 		add(clicky);
 

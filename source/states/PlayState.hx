@@ -58,8 +58,8 @@ class PlayState extends FlxState
 		bounds = Game.createCameraWall(gameCam, false, 30);
 		FlxG.worldBounds.set(-30, -30, FlxG.width + 60, FlxG.width + 60);
 
-		var bg = new FlxSprite(0, 0, 'assets/images/backdrop.png');
-		var hud = new FlxSprite(0, 0, 'assets/images/hud.png');
+		var bg = new FlxSprite(0, 0, 'assets/images/backgrounds/backdrop.png');
+		var hud = new FlxSprite(0, 0, 'assets/images/backgrounds/hud.png');
 
 		fanSound = Game.playSound('fan', 0);
 		fanSound.looped = true;
@@ -139,12 +139,13 @@ class PlayState extends FlxState
 		if (temperature.temp > 50)
 		{
 			gameCam.shake(temperature.temp / 200, .5);
-			fanSound.volume = temperature.temp / 200;
 		}
 		else
 			fanSound.volume = 0;
 
 		temperature.temp += amount;
+
+		fanSound.volume = temperature.temp / 250;
 	}
 
 	public function cool(amount:Float = 0)

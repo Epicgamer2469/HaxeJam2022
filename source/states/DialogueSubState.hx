@@ -27,18 +27,17 @@ class DialogueSubState extends FlxSubState
 	var curLine:Int = 0;
 	var currentHeight:Float = 0;
 	var canControl:Bool = false;
-	var sounds:Array<FlxSound> = [];
 	var prompt:FlxSprite;
 
 	public function new()
 	{
 		super();
 
-		bg = new FlxSprite(0, 0, 'assets/images/messaging.png');
+		bg = new FlxSprite(0, 0, 'assets/images/cutscene/messaging.png');
 		bg.screenCenter(X);
 		add(bg);
 
-		prompt = new FlxSprite(218, 111).loadGraphic('assets/images/enter.png', true, 26, 12);
+		prompt = new FlxSprite(218, 111).loadGraphic('assets/images/cutscene/enter.png', true, 26, 12);
 		prompt.animation.add('idle', [0, 1], 2, true);
 		prompt.animation.play('idle');
 		prompt.alpha = 0;
@@ -46,11 +45,6 @@ class DialogueSubState extends FlxSubState
 		add(bubbles);
 		add(texts);
 		add(prompt);
-
-		for (i in 1...8)
-		{
-			sounds.push(FlxG.sound.load('assets/sounds/keys/key-0$i${Game.getEXT()}'));
-		}
 
 		nextDialogue();
 	}
@@ -64,7 +58,7 @@ class DialogueSubState extends FlxSubState
 		newLine.hSpacing = -2;
 		newLine.font = 'rev';
 		newLine.color = 0xFF000000;
-		newLine.sounds = sounds;
+		newLine.sounds = Game.keySounds;
 		newLine.onComplete = () ->
 		{
 			FlxTween.tween(prompt, {alpha: 1}, .1, {ease: FlxEase.cubeOut});
@@ -77,7 +71,7 @@ class DialogueSubState extends FlxSubState
 		FlxTween.tween(bubble, {x: bubble.x + 5, alpha: 1}, .3, {ease: FlxEase.cubeOut});
 		bubbles.add(bubble);
 		texts.add(newLine);
-		newLine.start(0.065);
+		newLine.start(0.05);
 		dialogue.remove(dialogue[0]);
 	}
 

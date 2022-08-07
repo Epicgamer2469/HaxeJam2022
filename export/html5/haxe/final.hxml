@@ -28,6 +28,8 @@
 -D web
 --remap flash:openfl
 --macro flixel.system.macros.FlxDefines.run()
+--connect
+6000
 -js export/html5/bin/Pop-up Blocker.js
 -cp export/html5/haxe
 -D html5
