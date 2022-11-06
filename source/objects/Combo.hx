@@ -13,10 +13,11 @@ class Combo extends Window
 	final combos:Array<Array<FlxKey>> = [
 		[FlxKey.G, FlxKey.A, FlxKey.B],
 		[FlxKey.Z, FlxKey.Y, FlxKey.M],
-		[FlxKey.D, FlxKey.U, FlxKey.N],
-		[FlxKey.W, FlxKey.F, FlxKey.J],
 		[FlxKey.W, FlxKey.Y, FlxKey.S],
-		[FlxKey.H, FlxKey.A, FlxKey.X]
+		[FlxKey.G, FlxKey.A, FlxKey.X],
+		[FlxKey.M, FlxKey.A, FlxKey.B],
+		[FlxKey.X, FlxKey.A, FlxKey.W],
+		[FlxKey.B, FlxKey.A, FlxKey.M]
 	];
 
 	var buttons:Array<CButton> = [];
@@ -29,14 +30,10 @@ class Combo extends Window
 		var lastButton:CButton = null;
 		for (i in 0...3)
 		{
-			var tX:Float = 0;
-			trace(this.x);
-			if (i > 0)
-				tX = lastButton.x - this.x + lastButton.width + 7;
-			var k = new CButton(3 + tX, 20, combo[i].toString().toLowerCase(), combo[i]);
+			var k = new CButton(10 + 24 * i, 20, combo[i].toString().toLowerCase(), combo[i]);
 			if (i < 2)
 			{
-				var p = new FlxSprite(k.x + k.width + 1, 23, 'assets/images/plus.png');
+				var p = new FlxSprite(25 + 24 * i, 23, 'assets/images/plus.png');
 				add(p);
 			}
 			k.ID = i;
@@ -70,8 +67,8 @@ class CButton extends FlxSprite
 	public function new(x:Float, y:Float, graphic:String, key:FlxKey)
 	{
 		this.key = key;
-		super(x, y, 'assets/images/key_$graphic.png');
-		loadGraphic('assets/images/key_$graphic.png', true, Math.floor(width / 2), 12);
+		super(x, y, 'assets/images/keys/key_$graphic.png');
+		loadGraphic('assets/images/keys/key_$graphic.png', true, Math.floor(width / 2), 12);
 		animation.add('idle', [0, 1], 0, false);
 		animation.play('idle');
 	}

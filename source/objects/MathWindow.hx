@@ -22,7 +22,7 @@ class MathWindow extends Window
 	public function new(x:Float, y:Float)
 	{
 		super(x, y, 'window_math');
-		power = 9.5;
+		power = 8;
 
 		var correct = 0;
 		var n1 = 0;

@@ -16,8 +16,8 @@ class MashWindow extends Window
 		super(x, y, 'window_mash');
 
 		mashMeter = new FlxBar(5, 24, LEFT_TO_RIGHT, 50, 6, this, 'mashes', 0, 20);
-		mashMeter.createColoredEmptyBar(0xFF122020);
-		mashMeter.createColoredFilledBar(0xFF59C135);
+		mashMeter.createColoredEmptyBar(0x0);
+		mashMeter.createImageFilledBar('assets/images/windows/mash_fill.png');
 		add(mashMeter);
 	}
 
