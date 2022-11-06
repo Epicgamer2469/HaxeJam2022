@@ -17,6 +17,7 @@ class Typer extends Window
 		'exit', 'execute', 'compute', 'analyze', 'open', 'backup', 'boot', 'data', 'compile', 'copy', 'paste', 'dynamic', 'firewall', 'host', 'login',
 		'program', 'process', 'root', 'reboot', 'terminate'
 	];
+	final alphabet:String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	var text:FlxBitmapText;
 	var ghost:FlxBitmapText;
@@ -146,7 +147,7 @@ class Typer extends Window
 			case 'PERIOD': '.';
 			case 'SLASH': '/';
 			case 'BACKSLASH': '\\';
-			// case 'PLUS': shiftHeld ? '+' : '=';
+			case 'PLUS': shiftHeld ? '+' : '=';
 			case 'MINUS': shiftHeld ? '_' : '-';
 			case 'ONE': shiftHeld ? '!' : '1';
 			case 'TWO': shiftHeld ? '@' : '2';
@@ -158,13 +159,8 @@ class Typer extends Window
 			case 'EIGHT': shiftHeld ? '*' : '8';
 			case 'NINE': shiftHeld ? '(' : '9';
 			case 'ZERO': shiftHeld ? ')' : '0';
-			// case 'EQUAL': shiftHeld ? '+' : '=';
-			case 'PLUS' | 'EQUAL' | 'ENTER' | 'BACKSPACE' | 'TAB' | 'SPACE' | 'SHIFT' | 'CONTROL' | 'ALT' | 'CAPSLOCK' | 'ESCAPE' | 'LBRACKET' | 'RBRACKET' |
-				'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'F1' | 'DELETE' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7' | 'F8' | 'F9' | 'F10' | 'F11' | 'F12' |
-				'PAGEUP' | 'PAGEDOWN' | 'HOME' | 'END' | 'INSERT' | 'SEMICOLON' | 'QUOTE' | 'PRINTSCREEN' | 'NUMPADZERO' | 'NUMPADONE' | 'NUMPADTWO' |
-				'NUMPADTHREE' | 'NUMPADFOUR' | 'GRAVEACCENT' | 'NUMPADFIVE' | 'NUMPADSIX' | 'NUMPADSEVEN' | 'NUMPADEIGHT' | 'NUMPADNINE' | 'NUMPADMINUS' |
-				'NUMPADPLUS' | 'NUMPADPERIOD' | 'NUMPADMULTIPLY': null;
-			default: key;
+			case 'EQUAL': shiftHeld ? '+' : '=';
+			default: alphabet.indexOf(key) != -1 ? key : null;
 		}
 	}
 }
