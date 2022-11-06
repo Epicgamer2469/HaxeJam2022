@@ -10,11 +10,10 @@ import flixel.tweens.FlxTween;
 import objects.Window;
 import util.Game;
 
-class MenuState extends FlxState
+class MenuState extends GameState
 {
 	var logo:FlxSprite;
 	var window:PlayWindow;
-	var fakeMouse:FlxSprite;
 	var haxejam:FlxSprite;
 	var emitter1:FlxEmitter;
 	var emitter2:FlxEmitter;
@@ -56,16 +55,16 @@ class MenuState extends FlxState
 		haxejam.alpha = 0;
 
 		window = new PlayWindow(this);
-		FlxG.mouse.load('assets/images/cursor.png');
 
-		fakeMouse = new FlxSprite(105, FlxG.height + 2, 'assets/images/cursor.png');
-		fakeMouse.scale.set(.25, .25);
+		cursor.follow = false;
+		cursor.setPosition(105, FlxG.height + 2);
+		cursor.loadGraphic('assets/images/cursor_grab.png');
+
 		add(bg);
 		add(emitter1);
 		add(emitter2);
 		add(logo);
 		add(window);
-		add(fakeMouse);
 		add(haxejam);
 
 		#if html5
@@ -114,9 +113,6 @@ class MenuState extends FlxState
 				}
 			}
 		}
-
-		if (FlxG.mouse.justPressed)
-			Game.playSound('click');
 	}
 
 	override function closeSubState()
@@ -130,8 +126,6 @@ class MenuState extends FlxState
 		Game.playMusic('disposal', .5);
 
 		var flags:Array<Bool> = [false, false, false];
-		@:privateAccess
-		FlxG.mouse._cursor.alpha = 0;
 		FlxTween.tween(haxejam, {alpha: 1}, 1);
 		FlxTween.tween(logo, {y: 10}, 1.5, {
 			ease: FlxEase.bounceOut,
@@ -154,15 +148,19 @@ class MenuState extends FlxState
 				}
 			}
 		});
-		FlxTween.tween(fakeMouse, {y: 73}, .9, {ease: FlxEase.cubeOut, startDelay: .9}).then(FlxTween.tween(fakeMouse, {y: FlxG.height + 25}, .8, {
+		FlxTween.tween(cursor, {y: 77}, .9, {ease: FlxEase.cubeOut, startDelay: .9}).then(FlxTween.tween(cursor, {y: FlxG.height + 25}, .8, {
 			ease: FlxEase.cubeIn,
 			startDelay: .05,
+			onStart: twn ->
+			{
+				cursor.loadGraphic('assets/images/cursor.png');
+			},
 			onComplete: twn ->
 			{
 				window.canMove = true;
-				fakeMouse.visible = false;
-				@:privateAccess
-				FlxTween.tween(FlxG.mouse._cursor, {alpha: 1}, .75);
+				cursor.follow = true;
+				cursor.alpha = 0;
+				FlxTween.tween(cursor, {alpha: 1}, .75);
 			}
 		}));
 		FlxTween.tween(window, {y: 77}, .9, {ease: FlxEase.cubeOut, startDelay: .9});

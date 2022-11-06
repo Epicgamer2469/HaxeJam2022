@@ -16,7 +16,7 @@ class TempBar extends FlxGroup
 {
 	public var temp(default, set):Float = 0;
 
-	var fakeTemp:Int = 0;
+	var fakeTemp:Float = 0;
 	var tempTween:FlxTween;
 
 	var bar:FlxSprite;
@@ -40,29 +40,23 @@ class TempBar extends FlxGroup
 		add(txt);
 	}
 
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		fakeTemp = FlxMath.lerp(fakeTemp, temp, .075);
+		txt.text = '${Math.floor(fakeTemp)}%';
+		fixText();
+		if (fakeTemp >= 100)
+		{
+			PlayState.instance.gameOver();
+		}
+	}
+
 	function set_temp(v:Float)
 	{
-		temp = FlxMath.bound(v, 0, 100);
-		bar.animation.play('${Math.floor(FlxMath.remapToRange(temp, 0, 100, 0, 6))}');
-
-		if (tempTween != null)
-			tempTween.cancel();
-		tempTween = FlxTween.tween(this, {fakeTemp: Math.floor(temp)}, .5, {
-			onComplete: twn ->
-			{
-				txt.text = '${Math.floor(fakeTemp)}%';
-				fixText();
-				if (fakeTemp >= 100)
-				{
-					PlayState.instance.gameOver();
-				}
-			},
-			onUpdate: twn ->
-			{
-				txt.text = '${Math.floor(fakeTemp)}%';
-				fixText();
-			}
-		});
+		temp = FlxMath.bound(v, 0, 101);
+		bar.animation.play('${Math.floor(FlxMath.remapToRange(temp, 0, 101, 0, 6))}');
 
 		return v;
 	}

@@ -1,5 +1,6 @@
 package states;
 
+import objects.PullWindow;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -24,23 +25,24 @@ import objects.TempBar;
 import objects.Typer;
 import objects.Window;
 import util.Game;
+import util.DebugManager;
 
-class PlayState extends FlxState
+class PlayState extends GameState
 {
 	public static var instance:PlayState;
 
 	public var windows = new FlxTypedGroup<Window>();
 	public var focusedWindow:Window;
 	public var bounds:FlxGroup;
-	public var gameCam:Camera;
+	public var spawnRate:Float = 2.25;
+	public var spawnTimer:FlxTimer;
 
-	final windowTypes:Array<Class<Window>> = [PopUp, Double, MathWindow, Typer, MashWindow];
-	final weights:Array<Float> = [1, .25, .65, .625, .4];
+	public final windowTypes:Array<Class<Window>> = [PopUp, Double, MathWindow, Typer, MashWindow, Combo, PullWindow];
+
+	final weights:Array<Float> = [1, .25, .65, .625, .4, .35, .45];
 
 	var timeTxt:FlxBitmapText;
 	var time:Float;
-	var spawnTimer:FlxTimer;
-	var spawnRate:Float = 2.25;
 	var temperature:TempBar;
 	var fanSound:FlxSound;
 
@@ -50,10 +52,9 @@ class PlayState extends FlxState
 
 		instance = this;
 
-		gameCam = new Camera(-30, -30, FlxG.width + 60, FlxG.height + 60);
-		gameCam.scroll.set(-30, -30);
-		FlxG.cameras.reset(gameCam);
-		FlxCamera.defaultCameras = [gameCam];
+		#if debug
+		add(new DebugManager());
+		#end
 
 		bounds = Game.createCameraWall(gameCam, false, 30);
 		FlxG.worldBounds.set(-30, -30, FlxG.width + 60, FlxG.width + 60);
@@ -107,7 +108,6 @@ class PlayState extends FlxState
 	{
 		if (FlxG.mouse.justPressed)
 		{
-			Game.playSound('click');
 			var pressedWindow = -1;
 
 			for (i in 0...windows.members.length)
@@ -154,6 +154,8 @@ class PlayState extends FlxState
 	}
 
 	// Spawns the next window when the timer ends
+	var lastWindow:Class<Window> = null;
+
 	function spawnNext(tmr:FlxTimer)
 	{
 		if (spawnRate > .9)
@@ -161,7 +163,12 @@ class PlayState extends FlxState
 		tmr.reset(spawnRate);
 
 		// Game.playSound('open');
-		var nextWindow = Type.createInstance(FlxG.random.getObject(windowTypes, weights), []);
+		// In order to prevent repeating windows over and over
+		var winClass:Class<Window> = FlxG.random.getObject(windowTypes, weights);
+		while (winClass == lastWindow)
+			winClass = FlxG.random.getObject(windowTypes, weights);
+		lastWindow = winClass;
+		final nextWindow:Window = Type.createInstance(winClass, []);
 		windows.add(nextWindow);
 		nextWindow.showItems();
 		heat(nextWindow.power);

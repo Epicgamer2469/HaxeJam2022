@@ -17,6 +17,8 @@ class FocusSubState extends FlxSubState
 	{
 		super();
 
+		FlxG.mouse.load('assets/images/cursor.png', 1, -2);
+
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0x8C000000);
 		txt = Game.makeText('rev');
 		txt.text = 'Click window to focus game';
@@ -33,7 +35,12 @@ class FocusSubState extends FlxSubState
 
 			FlxTween.tween(bg, {alpha: 0}, .35);
 			@:privateAccess
-			FlxTween.tween(FlxG.mouse._cursor, {alpha: 0}, .35);
+			FlxTween.tween(FlxG.mouse._cursor, {alpha: 0}, .325, {
+				onComplete: twn ->
+				{
+					FlxG.mouse.visible = false;
+				}
+			});
 			FlxTween.tween(txt, {alpha: 0}, .35, {
 				onComplete: twn ->
 				{

@@ -32,7 +32,7 @@ class Ok extends FlxSprite
 	public function new(x:Float, y:Float, parent:Window)
 	{
 		this.parent = parent;
-		super(x, y, 'assets/images/window_ok.png');
+		super(x, y, 'assets/images/windows/window_ok.png');
 
 		button = new FlxSprite(x + 27, y + 21, 'assets/images/button_ok.png');
 	}
