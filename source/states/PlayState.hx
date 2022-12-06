@@ -1,31 +1,24 @@
 package states;
 
-import objects.PullWindow;
-import flixel.FlxCamera;
+import objects.windows.TrashWindow;
+import objects.windows.PullWindow;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.addons.display.FlxExtendedSprite;
-import flixel.group.FlxGroup.FlxTypedGroup;
+import util.DebugManager;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
 import flixel.text.FlxBitmapText;
-import flixel.text.FlxText;
-import flixel.util.FlxCollision;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
-import objects.Camera;
-import objects.Click;
-import objects.Combo;
-import objects.Double;
-import objects.MashWindow;
-import objects.MathWindow;
-import objects.PopUp;
+import objects.windows.ComboWindow;
+import objects.windows.DoubleWindow;
+import objects.windows.MashWindow;
+import objects.windows.MathWindow;
+import objects.windows.PopUpWindow;
 import objects.TempBar;
-import objects.Typer;
-import objects.Window;
+import objects.windows.TypingWindow;
+import objects.windows.Window;
 import util.Game;
-import util.DebugManager;
 
 class PlayState extends GameState
 {
@@ -37,9 +30,18 @@ class PlayState extends GameState
 	public var spawnRate:Float = 2.25;
 	public var spawnTimer:FlxTimer;
 
-	public final windowTypes:Array<Class<Window>> = [PopUp, Double, MathWindow, Typer, MashWindow, Combo, PullWindow];
+	public final windowTypes:Array<Class<Window>> = [
+		PopUpWindow,
+		DoubleWindow,
+		MathWindow,
+		TypingWindow,
+		MashWindow,
+		ComboWindow,
+		PullWindow,
+		TrashWindow
+	];
 
-	final weights:Array<Float> = [1, .5, .6, .5, .35, .325, .4];
+	final weights:Array<Float> = [1, .5, .6, .5, .35, .325, .4, .4];
 
 	var started:Bool = false;
 	var timeTxt:FlxBitmapText;
@@ -146,7 +148,6 @@ class PlayState extends GameState
 		if (temperature.temp > 50)
 		{
 			gameCam.shake(temperature.temp / 200, .5);
-			hudCam.shake(temperature.temp / 200, .5);
 		}
 		else
 			fanSound.volume = 0;

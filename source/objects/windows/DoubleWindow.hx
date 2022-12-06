@@ -1,12 +1,12 @@
-package objects;
+package objects.windows;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
 import states.PlayState;
 
-class Double extends Window
+class DoubleWindow extends Window
 {
-	var ok:Ok;
+	var ok:OkWindow;
 
 	public function new(x:Float, y:Float)
 	{
@@ -17,13 +17,13 @@ class Double extends Window
 	override function exit()
 	{
 		alive = false;
-		ok = new Ok(window.width / 2 - 30, window.height / 2 - 15, this);
+		ok = new OkWindow(window.width / 2 - 30, window.height / 2 - 15, this);
 		add(ok);
 		add(ok.button);
 	}
 }
 
-class Ok extends FlxSprite
+class OkWindow extends FlxSprite
 {
 	public var button:FlxSprite;
 

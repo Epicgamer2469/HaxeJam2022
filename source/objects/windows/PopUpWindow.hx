@@ -1,8 +1,8 @@
-package objects;
+package objects.windows;
 
 import flixel.FlxG;
 
-class PopUp extends Window
+class PopUpWindow extends Window
 {
 	public function new(x:Float = 0, y:Float = 0)
 	{

@@ -1,4 +1,4 @@
-package objects;
+package objects.windows;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -11,7 +11,7 @@ import flixel.tweens.FlxTween;
 import states.PlayState;
 import util.Game;
 
-class Typer extends Window
+class TypingWindow extends Window
 {
 	final words:Array<String> = [
 		'exit', 'execute', 'compute', 'analyze', 'open', 'backup', 'boot', 'data', 'compile', 'copy', 'paste', 'dynamic', 'firewall', 'host', 'login',

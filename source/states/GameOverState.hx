@@ -17,7 +17,7 @@ class GameOverState extends FlxState
 		'tough day, huh?',
 		'uh... maybe try downloading more RAM?',
 		'have you tried turning it off and on again?',
-		'quickly! pour water on your computer!',
+		'quickly! pour water all over your computer!',
 		'should have read the fine print...',
 	];
 

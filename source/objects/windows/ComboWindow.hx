@@ -1,4 +1,4 @@
-package objects;
+package objects.windows;
 
 import states.PlayState;
 import flixel.FlxG;
@@ -9,7 +9,7 @@ import flixel.system.FlxSound;
 import flixel.ui.FlxBar;
 import util.Game;
 
-class Combo extends Window
+class ComboWindow extends Window
 {
 	final combos:Array<Array<FlxKey>> = [
 		[FlxKey.G, FlxKey.A, FlxKey.B],
@@ -76,7 +76,7 @@ class Combo extends Window
 class CButton extends FlxSprite
 {
 	var key:FlxKey;
-	var parent:Combo;
+	var parent:ComboWindow;
 
 	public function new(x:Float, y:Float, graphic:String, key:FlxKey)
 	{

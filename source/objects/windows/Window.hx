@@ -1,4 +1,4 @@
-package objects;
+package objects.windows;
 
 import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil.LineStyle;

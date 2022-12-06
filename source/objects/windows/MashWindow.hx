@@ -1,4 +1,4 @@
-package objects;
+package objects.windows;
 
 import flixel.FlxG;
 import flixel.system.FlxSound;

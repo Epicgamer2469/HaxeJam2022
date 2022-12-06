@@ -13,6 +13,8 @@ class Cursor extends FlxSprite
 		super(0, 0, 'assets/images/cursor.png');
 		scale.set(.25, .25);
 		updateHitbox();
+
+		FlxG.watch.addFunction('pos', () -> {getPosition();});
 	}
 
 	override function update(elapsed:Float)
@@ -21,8 +23,7 @@ class Cursor extends FlxSprite
 
 		if (follow)
 		{
-			@:privateAccess
-			setPosition(FlxG.mouse.x - 1, FlxG.mouse.y);
+			setPosition((FlxG.game.mouseX - 1) / 4, FlxG.game.mouseY / 4);
 			if (FlxG.mouse.justPressed)
 			{
 				Game.playSound('click');

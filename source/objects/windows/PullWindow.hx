@@ -1,4 +1,4 @@
-package objects;
+package objects.windows;
 
 import flixel.math.FlxMath;
 import flixel.FlxG;
