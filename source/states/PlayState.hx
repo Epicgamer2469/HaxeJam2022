@@ -39,8 +39,9 @@ class PlayState extends GameState
 
 	public final windowTypes:Array<Class<Window>> = [PopUp, Double, MathWindow, Typer, MashWindow, Combo, PullWindow];
 
-	final weights:Array<Float> = [1, .25, .65, .625, .4, .35, .45];
+	final weights:Array<Float> = [1, .5, .6, .5, .35, .325, .4];
 
+	var started:Bool = false;
 	var timeTxt:FlxBitmapText;
 	var time:Float;
 	var temperature:TempBar;
@@ -81,6 +82,8 @@ class PlayState extends GameState
 
 		FlxG.camera.fade(0xFF000000, .5, true);
 
+		persistentUpdate = true;
+
 		if (!Game.save.data.seenDialogue)
 		{
 			Game.save.data.seenDialogue = true;
@@ -100,6 +103,7 @@ class PlayState extends GameState
 
 	function start()
 	{
+		started = true;
 		if (spawnTimer == null)
 			spawnTimer = new FlxTimer().start(spawnRate, spawnNext);
 	}
@@ -130,8 +134,11 @@ class PlayState extends GameState
 
 		super.update(elapsed);
 
-		time += elapsed;
-		timeTxt.text = FlxStringUtil.formatTime(time);
+		if (started)
+		{
+			time += elapsed;
+			timeTxt.text = FlxStringUtil.formatTime(time);
+		}
 	}
 
 	public function heat(amount:Float = 0)
@@ -139,6 +146,7 @@ class PlayState extends GameState
 		if (temperature.temp > 50)
 		{
 			gameCam.shake(temperature.temp / 200, .5);
+			hudCam.shake(temperature.temp / 200, .5);
 		}
 		else
 			fanSound.volume = 0;
@@ -153,9 +161,9 @@ class PlayState extends GameState
 		temperature.temp -= amount;
 	}
 
-	// Spawns the next window when the timer ends
 	var lastWindow:Class<Window> = null;
 
+	// Spawns the next window when the timer ends
 	function spawnNext(tmr:FlxTimer)
 	{
 		if (spawnRate > .9)

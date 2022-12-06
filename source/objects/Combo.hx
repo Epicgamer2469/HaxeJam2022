@@ -1,5 +1,6 @@
 package objects;
 
+import states.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.input.FlxInput;
@@ -12,7 +13,6 @@ class Combo extends Window
 {
 	final combos:Array<Array<FlxKey>> = [
 		[FlxKey.G, FlxKey.A, FlxKey.B],
-		[FlxKey.Z, FlxKey.Y, FlxKey.M],
 		[FlxKey.W, FlxKey.Y, FlxKey.S],
 		[FlxKey.G, FlxKey.A, FlxKey.X],
 		[FlxKey.M, FlxKey.A, FlxKey.B],
@@ -43,14 +43,27 @@ class Combo extends Window
 		}
 	}
 
-	var checks = [];
+	public var checks = [];
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (PlayState.instance.focusedWindow != this)
+		{
+			for (b in buttons)
+			{
+				checks[b.ID] = 0;
+				b.animation.frameIndex = 0;
+			}
+		}
+	}
 
 	override function whenFocused()
 	{
 		for (b in buttons)
 		{
-			b.check();
-			checks[b.ID] = b.animation.frameIndex;
+			checks[b.ID] = b.check();
 		}
 
 		if (checks[0] + checks[1] + checks[2] == 3)
@@ -63,6 +76,7 @@ class Combo extends Window
 class CButton extends FlxSprite
 {
 	var key:FlxKey;
+	var parent:Combo;
 
 	public function new(x:Float, y:Float, graphic:String, key:FlxKey)
 	{
@@ -73,15 +87,20 @@ class CButton extends FlxSprite
 		animation.play('idle');
 	}
 
+	// TODO: figure out why with some key combos you cant press all 3 simultaneously
 	public function check()
 	{
-		if (FlxG.keys.anyJustPressed([key]))
-			Game.playKeySound();
-		if (FlxG.keys.anyPressed([key]))
+		if (FlxG.keys.checkStatus(key, JUST_PRESSED))
 		{
+			Game.playKeySound();
 			animation.frameIndex = 1;
+			trace(key);
 		}
-		else
+		else if (FlxG.keys.checkStatus(key, JUST_RELEASED))
+		{
 			animation.frameIndex = 0;
+		}
+
+		return animation.frameIndex;
 	}
 }

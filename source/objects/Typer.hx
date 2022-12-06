@@ -147,7 +147,6 @@ class Typer extends Window
 			case 'PERIOD': '.';
 			case 'SLASH': '/';
 			case 'BACKSLASH': '\\';
-			case 'PLUS': shiftHeld ? '+' : '=';
 			case 'MINUS': shiftHeld ? '_' : '-';
 			case 'ONE': shiftHeld ? '!' : '1';
 			case 'TWO': shiftHeld ? '@' : '2';
