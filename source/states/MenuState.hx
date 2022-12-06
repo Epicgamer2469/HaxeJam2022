@@ -18,6 +18,8 @@ class MenuState extends GameState
 	var emitter1:FlxEmitter;
 	var emitter2:FlxEmitter;
 	var sounds:Array<FlxSound> = [];
+	var infoButton:FlxSprite;
+	var infoCard:CreditWindow;
 
 	override function create()
 	{
@@ -54,6 +56,13 @@ class MenuState extends GameState
 		haxejam.setPosition(FlxG.width - haxejam.width - 1, FlxG.height - haxejam.height - 1);
 		haxejam.alpha = 0;
 
+		infoButton = new FlxSprite(FlxG.width - 9, 1, 'assets/images/menu/info.png');
+		infoButton.alpha = 0;
+
+		infoCard = new CreditWindow(64, 15);
+		infoCard.canMove = true;
+		infoCard.visible = false;
+
 		window = new PlayWindow(this);
 
 		cursor.follow = false;
@@ -65,7 +74,12 @@ class MenuState extends GameState
 		add(emitter2);
 		add(logo);
 		add(window);
+		add(infoButton);
+		add(infoCard);
+
+		#if ITCH_BUILD
 		add(haxejam);
+		#end
 
 		#if html5
 		if (Main.starting)
@@ -79,6 +93,7 @@ class MenuState extends GameState
 			start();
 		}
 		#else
+		FlxG.mouse.visible = false;
 		start();
 		#end
 
@@ -112,6 +127,16 @@ class MenuState extends GameState
 					FlxG.random.getObject(sounds).play();
 				}
 			}
+		}
+		if (FlxG.mouse.justPressed)
+		{
+			if (FlxG.mouse.overlaps(infoButton))
+			{
+				infoCard.visible = true;
+				if (infoCard.window.alpha < 1)
+					infoCard.showItems();
+			}
+			Game.playSound('click');
 		}
 	}
 
@@ -164,6 +189,73 @@ class MenuState extends GameState
 			}
 		}));
 		FlxTween.tween(window, {y: 77}, .9, {ease: FlxEase.cubeOut, startDelay: .9});
+		FlxTween.tween(infoButton, {alpha: 1}, 1.5);
+	}
+}
+
+class CreditWindow extends Window
+{
+	public function new(x:Int, y:Int)
+	{
+		super(x, y, 'assets/images/menu/info_card.png', true);
+		setPosition(x, y);
+
+		canMove = true;
+		alive = false;
+		window.alpha = 0;
+	}
+
+	override public function update(elapsed:Float)
+	{
+		if (canMove)
+		{
+			focused = true;
+			if (FlxG.mouse.justPressed)
+			{
+				if (close != null && FlxG.mouse.overlaps(close))
+					hideItems();
+				else if (!bouncing && FlxG.mouse.overlaps(title))
+				{
+					moving = true;
+					startPoint = FlxG.mouse.getScreenPosition();
+				}
+			}
+
+			if (moving)
+			{
+				final pos = FlxG.mouse.getScreenPosition();
+				final oldPos = getPosition();
+				x -= startPoint.x - pos.x;
+				y -= startPoint.y - pos.y;
+				if (x < 0 || x + window.width > FlxG.width)
+					x = oldPos.x;
+				if (y < 0 || y + window.height > FlxG.height)
+					y = oldPos.y;
+				startPoint = pos;
+				oldPos.put();
+			}
+			else
+				whenFocused();
+
+			if (FlxG.mouse.justReleased)
+				moving = false;
+		}
+		else
+		{
+			moving = false;
+			focused = false;
+		}
+	}
+
+	override function hideItems()
+	{
+		for (spr in members)
+		{
+			setOrigins(spr);
+			FlxTween.tween(spr, {alpha: 0, 'scale.x': .4, 'scale.y': .4}, .5, {
+				ease: FlxEase.cubeOut
+			});
+		};
 	}
 }
 

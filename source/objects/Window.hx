@@ -1,5 +1,8 @@
 package objects;
 
+import flixel.util.FlxColor;
+import flixel.util.FlxSpriteUtil.LineStyle;
+import flixel.addons.display.shapes.FlxShapeBox;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
@@ -22,6 +25,7 @@ class Window extends FlxSpriteGroup
 	public var lossPower:Float = 2;
 
 	var focused:Bool = false;
+	var focusSprite:FlxShapeBox;
 	var shadow:FlxSprite;
 	var close:FlxSprite;
 
@@ -32,6 +36,8 @@ class Window extends FlxSpriteGroup
 
 		sprite = StringTools.startsWith(sprite, 'assets/images') ? sprite : 'assets/images/windows/$sprite.png';
 		window = new FlxSprite(0, 0, sprite);
+		focusSprite = new FlxShapeBox(0, 0, window.width, window.height, {thickness: 1, color: FlxColor.WHITE}, 0x0);
+		focusSprite.alpha = 0;
 
 		shadow = new FlxSprite(2, 2, sprite);
 		shadow.color = 0xFF000000;
@@ -40,6 +46,7 @@ class Window extends FlxSpriteGroup
 		title = new FlxSprite(0, 0).makeGraphic(Std.int(window.width), 6, 0x0);
 
 		add(shadow);
+		add(focusSprite);
 		add(window);
 		add(title);
 
@@ -63,17 +70,23 @@ class Window extends FlxSpriteGroup
 
 		if (canMove || (alive && this == PlayState.instance.focusedWindow))
 		{
-			focused = true;
 			if (FlxG.mouse.justPressed)
 			{
 				if (close != null && FlxG.mouse.overlaps(close))
 					exit();
-				else if (!bouncing && FlxG.mouse.overlaps(title))
+				else
 				{
-					moving = true;
-					startPoint = FlxG.mouse.getScreenPosition();
+					if (!focused)
+						focus();
+					if (!bouncing && FlxG.mouse.overlaps(title))
+					{
+						moving = true;
+						startPoint = FlxG.mouse.getScreenPosition();
+					}
 				}
 			}
+
+			focused = true;
 
 			if (moving)
 			{
@@ -117,6 +130,17 @@ class Window extends FlxSpriteGroup
 		PlayState.instance.cool(power);
 	}
 
+	var focusTween:FlxTween;
+
+	function focus()
+	{
+		if (focusTween != null)
+			focusTween.cancel();
+		focusSprite.alpha = 1;
+		focusSprite.scale.set(1, 1);
+		focusTween = FlxTween.tween(focusSprite, {alpha: 0, 'scale.x': 1.1, 'scale.y': 1.1}, .4, {ease: FlxEase.cubeOut});
+	}
+
 	public function hideItems()
 	{
 		for (spr in members)
@@ -138,6 +162,8 @@ class Window extends FlxSpriteGroup
 		alive = false;
 		for (spr in members)
 		{
+			if (spr == focusSprite)
+				continue;
 			setOrigins(spr);
 			spr.scale.set(0.75, 0.75);
 			spr.alpha = 0;

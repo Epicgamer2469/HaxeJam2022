@@ -39,7 +39,7 @@ class PlayState extends GameState
 
 	public final windowTypes:Array<Class<Window>> = [PopUp, Double, MathWindow, Typer, MashWindow, Combo, PullWindow];
 
-	final weights:Array<Float> = [1, .25, .65, .625, .4, .35, .45];
+	final weights:Array<Float> = [1, .5, .6, .5, .35, .325, .4];
 
 	var timeTxt:FlxBitmapText;
 	var time:Float;
