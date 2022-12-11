@@ -7,7 +7,7 @@ import flixel.effects.particles.FlxEmitter;
 import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import objects.Window;
+import objects.windows.Window;
 import util.Game;
 
 class MenuState extends GameState
