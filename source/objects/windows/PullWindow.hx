@@ -15,11 +15,13 @@ class PullWindow extends Window
 
 		bar = new FlxSprite(5, 24, 'assets/images/windows/pull_bar.png');
 		add(bar);
+
+		FlxG.watch.add(this, 'increment');
 	}
 
-	final defaultInc:Float = 0.25;
+	final defaultInc:Float = 0.01;
 	var pulling:Bool = false;
-	var increment:Float = .025;
+	var increment:Float = 0.01;
 
 	override function whenFocused()
 	{
@@ -41,7 +43,7 @@ class PullWindow extends Window
 
 		if (pulling && FlxG.mouse.y > bar.y + bar.height)
 		{
-			increment = FlxMath.bound(increment + .02, 0, 2);
+			increment = FlxMath.bound(increment + FlxG.random.float(0.02, 0.045), 0, 2.5);
 			bar.y += increment;
 		}
 

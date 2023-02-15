@@ -28,6 +28,15 @@ class DebugManager extends FlxBasic
 			{
 				PlayState.instance.spawnTimer.active = !PlayState.instance.spawnTimer.active;
 			}
+
+			if (FlxG.keys.justPressed.UP)
+			{
+				PlayState.instance.heat(5);
+			}
+			else if (FlxG.keys.justPressed.DOWN)
+			{
+				PlayState.instance.cool(5);
+			}
 		}
 	}
 }

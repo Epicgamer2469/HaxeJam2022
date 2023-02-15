@@ -36,7 +36,7 @@ class TrashWindow extends Window
 	{
 		super.update(elapsed);
 
-		if (FlxG.mouse.overlaps(folder) && !dragging)
+		if (FlxG.mouse.overlaps(folder) && !dragging && (folderTween == null || !folderTween.active))
 		{
 			folderOverlay.visible = true;
 		}

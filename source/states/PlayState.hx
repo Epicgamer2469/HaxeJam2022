@@ -70,6 +70,7 @@ class PlayState extends GameState
 
 		temperature = new TempBar();
 		timeTxt = Game.makeText('8px_bold');
+		timeTxt.text = "0:00";
 		timeTxt.setPosition(221, 132);
 		timeTxt.fieldWidth = 38;
 		timeTxt.alignment = CENTER;

@@ -13,8 +13,6 @@ class Cursor extends FlxSprite
 		super(0, 0, 'assets/images/cursor.png');
 		scale.set(.25, .25);
 		updateHitbox();
-
-		FlxG.watch.addFunction('pos', () -> {getPosition();});
 	}
 
 	override function update(elapsed:Float)
